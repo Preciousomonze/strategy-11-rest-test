@@ -24,6 +24,8 @@
         "@wordpress/notices": "^4.19.0"
     },
     "devDependencies": {
-        "@wordpress/scripts": "^19.2.4"
+        "@wordpress/scripts": "^19.2.4",
+        "eslint-plugin-compat": "^6.0.0",
+        "mini-css-extract-plugin": "^2.9.0"
     }
 }

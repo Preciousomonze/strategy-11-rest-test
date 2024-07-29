@@ -47,8 +47,10 @@ class Admin_Page {
      */
     public static function admin_page() {
         ?>
-        <div class="wrap">
-            <h1><?php esc_html_e( 'Strategy11 Data', 'strategy-11-rest-test' ); ?></h1>
+        <div class="cx-strategy11-wrap">
+            <div id="cx-s-top-bar">
+                <h2><?php esc_html_e( 'CodeXplorer Strategy 11 Data', 'strategy-11-rest-test' ); ?></h2>
+            </div>
             <div id="cx-strategy11-admin-data-table"><?php esc_html_e( 'Loading... 🚦', 'strategy-11-rest-test' ); ?></div>
             <button id="cx-strategy11-refresh-button" class="button"><?php esc_html_e( 'Refresh Data', 'strategy-11-rest-test' ); ?></button>
         </div>
@@ -73,13 +75,6 @@ class Admin_Page {
         }
  
         $asset = include $asset_file;
-		// wp_enqueue_script(
-		// 	$script_handle,
-		// 	plugins_url( '../../build/index.js', __FILE__ ),
-		// 	$asset_file['dependencies'],
-		// 	$asset_file['version'],
-		// 	true
-		// );
 
         wp_enqueue_script( 'cx_strategy11_admin_script',
             Init::plugin_url() . '/assets/js/build/admin.js',
@@ -87,6 +82,20 @@ class Admin_Page {
             $asset['version'],
             true 
         );
+
+        // CSS.
+        wp_enqueue_style( 'cx_strategy11_admin_style',
+            Init::plugin_url() . '/assets/css/admin.css',
+            array_filter(
+                $asset['dependencies'],
+                function ( $style ) {
+                    return wp_style_is( $style, 'registered' );
+                }
+            ),
+            $asset['version'],
+            true 
+        );
+
     }
 
     /**
