@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot } from '@wordpress/element';
+import domReady from '@wordpress/dom-ready';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
 
@@ -64,7 +65,7 @@ const AdminDataTable = () => {
     );
 };
 
-document.addEventListener( 'DOMContentLoaded', () => {
+domReady( () => {
     const container = document.getElementById( 'cx-strategy11-admin-data-table' );
     if ( container ) { // Properly handle if container is found or not.
         const root = createRoot( container );

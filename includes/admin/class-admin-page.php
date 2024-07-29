@@ -61,20 +61,32 @@ class Admin_Page {
      * @param string $hook The current admin page hook.
      */
     public static function enqueue_admin_scripts( $hook ) {
+        var_dump($hook);
         if ( $hook !== 'toplevel_page_cx-strategy11-data' ) {
             return;
         }
-        $asset_file = include dirname( __DIR__, 2 ) . '/build/index.asset.php';
 
-		wp_enqueue_script(
-			$script_handle,
-			plugins_url( '../../build/index.js', __FILE__ ),
-			$asset_file['dependencies'],
-			$asset_file['version'],
-			true
-		);
+        $asset_file = Init::plugin_path() . '/assets/js/build/admin.asset.php';
 
-        wp_enqueue_script( 'strategy11_admin_script', plugins_url( 'assets/js/build/admin.js', __FILE__ ), [ 'wp-element' ], CX_STRATEGY11_PLUGIN_VERSION, true );
+        if ( ! file_exists( $asset_file ) ) {
+            return;
+        }
+ 
+        $asset = include $asset_file;
+		// wp_enqueue_script(
+		// 	$script_handle,
+		// 	plugins_url( '../../build/index.js', __FILE__ ),
+		// 	$asset_file['dependencies'],
+		// 	$asset_file['version'],
+		// 	true
+		// );
+
+        wp_enqueue_script( 'cx_strategy11_admin_script',
+            Init::plugin_url() . '/assets/js/build/admin.js',
+            $asset['dependencies'],
+            $asset['version'],
+            true 
+        );
     }
 
     /**

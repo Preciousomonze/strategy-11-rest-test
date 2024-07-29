@@ -33,7 +33,7 @@ add_action( 'plugins_loaded', function() {
 function cx_strategy11_init() {
 
     // Include the init class file.
-    require_once plugin_dir_path( __FILE__ ) . 'includes/class-init.php';
+    require_once CX_STRATEGY11_PLUGIN_DIR . 'includes/class-init.php';
 
     // Initialize the plugin.
     CX_Strategy11_TEST\Init::register_services();

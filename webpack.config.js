@@ -1,3 +1,27 @@
+/**
+ * External Dependencies
+ */
+const path = require( 'path' );
+
+/**
+ * WordPress Dependencies
+ */
+const defaultConfig = require( '@wordpress/scripts/config/webpack.config.js' );
+
+module.exports = {
+    ...defaultConfig,
+    mode: 'development',
+    entry: {
+        frontend: path.resolve( __dirname, 'assets/js/src', 'frontend.js' ),
+        admin:  path.resolve( __dirname, 'assets/js/src', 'admin.js' ),
+    },
+    output: {
+        path: path.resolve( __dirname, 'assets/js/build' ),
+        filename: '[name].js',
+    },
+}
+
+/*
 const path = require( 'path' );
 
 module.exports = {
@@ -28,10 +52,7 @@ module.exports = {
         extensions: [ '.js' ],
     },
     externals: {
-        react: 'React',
-        'react-dom': 'ReactDOM',
-        '@wordpress/element': 'wp.element',
-        '@wordpress/i18n': 'wp.i18n',
-        '@wordpress/api-fetch': 'wp.apiFetch',
+
     },
 };
+*/
