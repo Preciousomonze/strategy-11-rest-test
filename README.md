@@ -48,10 +48,10 @@ Navigate to the "CX Strategy 11" menu in the WordPress admin to view and sort th
 ## Screenshots
 
 1. Admin Page with Data Table and Refresh Button
-   ![Admin Page](path_to_screenshot_1.png)
+   ![Admin Page](https://github.com/Preciousomonze/strategy-11-rest-test/blob/main/screenshots/screenshot1.png)
 
 2. Frontend Table Display
-   ![Frontend Table](path_to_screenshot_2.png)
+   ![Frontend Table](https://github.com/Preciousomonze/strategy-11-rest-test/blob/main/screenshots/screenshot2.png)
 
 ## Frequently Asked Questions
 
