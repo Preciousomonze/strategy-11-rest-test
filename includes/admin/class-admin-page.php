@@ -24,7 +24,7 @@ class Admin_Page {
     public static function init() {
         add_action( 'admin_menu', [ __CLASS__, 'register_admin_page' ] );
         add_action( 'admin_enqueue_scripts', [ __CLASS__, 'admin_scripts' ] );
-        add_action( 'wp_ajax_cx_strategy11_refresh_data', [ __CLASS__, 'refresh_data_ajax' ] );
+        add_action( 'admin_init', [ __CLASS__, 'refresh_data' ] );
     }
 
     /**
@@ -87,7 +87,6 @@ class Admin_Page {
 			</div>
 
             <div id="cx-strategy11-admin-data-table" class="cx-s-dashboard-widget cx-s-card-item cx-s-px-0 cx-s-init-cascade-animation" style="transition-delay: 0.15s;">
-                <?php esc_html_e( 'Loading... 🚦', 'strategy-11-rest-test' ); ?>
             </div>
         </div>
         </div>
@@ -141,14 +140,25 @@ class Admin_Page {
     }
 
     /**
-     * Handle AJAX request to refresh data
+     * Handle request to refresh data
      */
-    public static function refresh_data_ajax() {
+    public static function refresh_data() {
+
+        // Check if the current user has the required capability
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( __( 'Unauthorized', 'strategy-11-rest-test' ), 401 );
+            wp_die( __( 'Unauthorized', 'strategy-11-rest-test' ), __( 'Error', 'strategy-11-rest-test' ), array( 'response' => 401 ) );
         }
 
-        delete_transient( 'strategy11_cached_data' );
-        wp_send_json_success( __( 'Data refreshed', 'strategy-11-rest-test' ) );
+        // Check if the 'cx_strategy11_data_action' parameter is set to 'refresh'
+        if ( isset( $_GET['cx_strategy11_data_action'] ) && sanitize_text_field( $_GET['cx_strategy11_data_action'] ) === 'refresh' ) {
+            // Delete the transient to refresh data
+            delete_transient( 'cx_strategy11_cached_data' );
+        
+            // Get the current URL without our parameter and reload.
+            $url = remove_query_arg( 'cx_strategy11_data_action' );
+
+            wp_safe_redirect( $url );
+            exit;
+        }
     }
 }

@@ -43,17 +43,13 @@ const AdminDataTable = () => {
      */
     const refreshData = () => {
         setDataLoaded( false );
-        apiFetch( {
-            path: ajaxurl,
-            method: 'POST',
-            data: {
-                action: 'cx_strategy11_refresh_data',
-            },
-        } )
-        .then( loadData )
-        .finally( () => {
-            setDataLoaded( true );
-        } );
+        const currentUrl = new URL(window.location.href);
+
+        // Set the URL parameter.
+        currentUrl.searchParams.set( 'cx_strategy11_data_action', 'refresh' );
+
+        // Reloadddd.
+        window.location.href = currentUrl.toString();
     };
 
     /**

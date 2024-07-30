@@ -5,11 +5,12 @@
     "scripts": {
         "build": "wp-scripts build",
         "start": "wp-scripts start",
-        "format": "wp-scripts format",
-        "lint:css": "wp-scripts lint-style",
-        "lint:js": "wp-scripts lint-js",
         "test:e2e": "wp-scripts test-e2e",
-        "test:unit": "wp-scripts test-unit-js"
+        "test:unit": "wp-scripts test-unit-js",
+        "compress-zip": "compress-zip-offload.sh -c",
+		"offload-zip": "compress-zip-offload.sh -o",
+		"compress-zip-offload": "npm run compress-zip && npm run offload-zip",
+        "plugin-zip": "wp-scripts plugin-zip"
     },
     "author": "Precious Omonzejele",
     "license": "GPL-3.0",
