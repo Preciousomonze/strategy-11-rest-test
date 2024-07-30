@@ -12,13 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-
 define( 'CX_STRATEGY11_PLUGIN_FILE', __FILE__ );
 define( 'CX_STRATEGY11_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CX_STRATEGY11_ABSPATH', dirname( CX_STRATEGY11_PLUGIN_FILE ) . '/' );
 define( 'CX_STRATEGY11_ASSETS_PATH', plugins_url( 'assets/', __FILE__ ) );
 define( 'CX_STRATEGY11_PLUGIN_VERSION', '1.0.0' );
-
 
 // Load text domain for translations.
 add_action( 'plugins_loaded', function() {

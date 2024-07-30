@@ -4,7 +4,6 @@ import domReady from '@wordpress/dom-ready';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
 import { Notice, Button } from '@wordpress/components';
-//import '../../scss/admin.scss';
 
 // Store data row count.
 let rowCount = 0;
@@ -127,46 +126,47 @@ const AdminDataTable = () => {
     updateCounter( rowCount );
     
     return (
-            <div class="cx-s-dashboard-widget cx-s-justify-between">
-                <div class="cx-s-before-table">
+            <div className="cx-s-dashboard-widget cx-s-justify-between">
+                <div className="cx-s-before-table">
                     <h2>{ data.title }</h2> 
                     <button onClick={ refreshData } className="button cx-s-button-primary cx-s-widget-cta">
                         { __( 'Refresh Data', 'strategy-11-rest-test' ) }
                     </button>
                 </div>
-                <table class="wp-list-table widefat table-view-list fixed striped">
+                <table className="wp-list-table widefat table-view-list fixed striped">
                     <thead>
                         <tr>
                         { data.data.headers.map( header => (
                             <th key={ header }>
                                 { header }
-                                <span className="dashicons dashicons-sort" onClick={ () => requestSort( header.toLowerCase().replace( / /g, '' ) ) }></span>
+                                <span title="sort" className="dashicons dashicons-sort" onClick={ () => requestSort( header.toLowerCase().replace( / /g, '' ) ) }></span>
                             </th>
                         ) ) }
                         </tr>
                     </thead>
                     <tbody id="the-list">
                     { sortedRows.map( ( row, index ) => ( 
-                        <tr key={ row.id } class={ expandedRows[ row.id ] ? 'is-expanded' : '' }>
+                        <tr key={ row.id } className={ expandedRows[ row.id ] ? 'cx-s-is-expanded' : '' }>
                             <td>{ row.id }
                             <button type="button" className="toggle-row" onClick={() => handleToggle( row.id )}>
-                                <span class="screen-reader-text">Show more details</span>
+                                <span className="screen-reader-text">Show more details</span>
                             </button>
                             </td>
-                            <td>
-                                <span class="cx-s-mobile-theader">{ data.data.headers[1] }</span>
-                                <span class="cx-s-tdata">{ row.fname }</span>
+                            <td className={ expandedRows[ row.id ] ? 'show' : 'hide' }>
+                                <span className="cx-s-mobile-theader">{ data.data.headers[1] }</span>
+                                <span className="cx-s-tdata">{ row.fname }</span>
                             </td>
-                            <td>
-                                <span class="cx-s-mobile-theader">{ data.data.headers[2] }</span>
-                                <span class="cx-s-tdata">{ row.lname }</span>
+                            <td className={ expandedRows[ row.id ] ? 'show' : 'hide' }>
+                                <span className="cx-s-mobile-theader">{ data.data.headers[2] }</span>
+                                <span className="cx-s-tdata">{ row.lname }</span>
                             </td>
-                            <td><span class="cx-s-mobile-theader">{ data.data.headers[3] }</span>
-                                <span class="cx-s-tdata">{ row.email }</span>
+                            <td className={ expandedRows[ row.id ] ? 'show' : 'hide' }>
+                                <span className="cx-s-mobile-theader">{ data.data.headers[3] }</span>
+                                <span className="cx-s-tdata">{ row.email }</span>
                             </td>
-                            <td>
-                                <span class="cx-s-mobile-theader">{ data.data.headers[4] }</span>
-                                <span class="cx-s-tdata">{ new Date( row.date * 1000 ).toLocaleDateString( __( 'en-US', 'strategy-11-rest-test' ), { year: 'numeric', month: 'long', day: 'numeric' } ) }</span>
+                            <td className={ expandedRows[ row.id ] ? 'show' : 'hide' }>
+                                <span className="cx-s-mobile-theader">{ data.data.headers[4] }</span>
+                                <span className="cx-s-tdata">{ new Date( row.date * 1000 ).toLocaleDateString( __( 'en-US', 'strategy-11-rest-test' ), { year: 'numeric', month: 'long', day: 'numeric' } ) }</span>
                             </td>
                         </tr>
                     ) ) }

@@ -9,7 +9,7 @@ class Strategy11Test extends WP_UnitTestCase {
      * Test data is cached
      */
     public function test_data_is_cached() {
-        $transient_key = 'strategy11_cached_data';
+        $transient_key = 'cx_strategy11_cached_data';
         $api_url       = 'http://your-site/wp-json/strategy11/v1/data';
 
         // Clear any existing transient.
@@ -43,11 +43,11 @@ class Strategy11Test extends WP_UnitTestCase {
             array( 'id' => 1, 'name' => 'Test Name', 'value' => 'Test Value' )
         );
 
-        set_transient( 'strategy11_cached_data', wp_json_encode( $mock_data ), HOUR_IN_SECONDS );
+        set_transient( 'cx_strategy11_cached_data', wp_json_encode( $mock_data ), HOUR_IN_SECONDS );
 
         // Capture shortcode output.
         ob_start();
-        echo do_shortcode( '[strategy11_data_table]' );
+        echo do_shortcode( '[cx_strategy11_data_table]' );
         $output = ob_get_clean();
 
         // Check if the table contains the expected data.

@@ -46,6 +46,11 @@ class Admin_Page {
      * Display the admin page content
      */
     public static function admin_page() {
+        /**
+         * Fires before the admin page content is rendered.
+         *
+         * @since 1.0.0
+         */
         do_action( 'cx_strategy11_before_admin_page_content' );
         ?>
         <div class="cx-strategy11-wrap">
@@ -59,7 +64,19 @@ class Admin_Page {
                  <span class="screen-reader-text"><?php esc_html_e( 'CX Strategy 11 Data', 'strategy-11-rest-test' ); ?></span>
 	            </a>
                 <div class="cx-s-title">
-                <h2><?php esc_html_e( 'CodeXplorer Strategy 11 Data', 'strategy-11-rest-test' ); ?></h2>
+                <h2><?php 
+                    /**
+                     * Filter the admin page title.
+                     *
+                     * @param string $page_heading The default page title.
+                     *
+                     * @since 1.0.0
+                     */
+                    $page_heading = apply_filters( 'cx_strategy11_admin_page_title', __( 'CodeXplorer Strategy 11 Data', 'strategy-11-rest-test' ) );
+
+                    echo $page_heading; 
+                    ?>
+                </h2>
                 </div>
             </div>
 
@@ -72,11 +89,15 @@ class Admin_Page {
             <div id="cx-strategy11-admin-data-table" class="cx-s-dashboard-widget cx-s-card-item cx-s-px-0 cx-s-init-cascade-animation" style="transition-delay: 0.15s;">
                 <?php esc_html_e( 'Loading... 🚦', 'strategy-11-rest-test' ); ?>
             </div>
-            <button id="cx-strategy11-refresh-button" class="button"><?php esc_html_e( 'Refresh Data', 'strategy-11-rest-test' ); ?></button>
         </div>
         </div>
         </div>
         <?php
+        /**
+         * Fires after the admin page content is rendered.
+         *
+         * @since 1.0.0
+         */
         do_action( 'cx_strategy11_after_admin_page_content' );
     }
 
@@ -117,7 +138,6 @@ class Admin_Page {
             ),
             $asset['version']
         );
-
     }
 
     /**

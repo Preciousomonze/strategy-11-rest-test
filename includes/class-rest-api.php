@@ -56,7 +56,7 @@ class Rest_API {
      * @return \WP_REST_Response|WP_Error
      */
     public static function get_data() {
-        $transient_key = 'strategy11_cached_data';
+        $transient_key = 'cx_strategy11_cached_data';
         $cached_data = get_transient( $transient_key );
 
         if ( $cached_data === false ) {
@@ -69,9 +69,9 @@ class Rest_API {
             $data = wp_remote_retrieve_body( $response );
             $data = sanitize_text_field( $data ); // Sanitize the data.
 
-            set_transient( $transient_key, $data, HOUR_IN_SECONDS );
+            set_transient( $transient_key, $data, HOUR_IN_SECONDS ); // Set cache for 1 hour.
         } else {
-            $data = $cached_data;
+            $data = $cached_data; // Still within 1 hour, so use cached data.
         }
 
         return rest_ensure_response( json_decode( $data, true ) );

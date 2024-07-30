@@ -22,6 +22,7 @@ class Shortcodes {
      * Initialize the class
      */
     public static function init() {
+        add_action( 'wp_enqueue_scripts', [ __CLASS__, 'frontend_scripts' ] );
         add_action( 'init', [ __CLASS__, 'register_shortcodes' ] );
     }
 
@@ -38,7 +39,22 @@ class Shortcodes {
      * @return string
      */
     public static function data_table_shortcode() {
-        $asset_file = Init::plugin_path() . '/assets/js/build/admin.asset.php';
+        // Add script.
+        wp_enqueue_script( 'cx_strategy11_frontend_script' );
+
+        // Enqueue CSS only on shortcode page. Not the best way though is it, just for test :), or we could load it all through from enqueue_scripts 🤔.
+        wp_enqueue_style( 'cx_strategy11_frontend_style');
+                
+        return '<div id="cx-strategy11-data-table" class="cx-strategy11-data-table">' . esc_html__( 'Loading... 🚦', 'strategy-11-rest-test' ) . '</div>';
+    }
+
+
+    /**
+     * Enqueue frontend scripts
+     */
+    public static function frontend_scripts() {
+
+        $asset_file = Init::plugin_path() . '/assets/js/build/frontend.asset.php';
 
         if ( ! file_exists( $asset_file ) ) {
             return;
@@ -46,16 +62,16 @@ class Shortcodes {
  
         $asset = include $asset_file;
 
-        // JS.
-        wp_enqueue_script( 'cx_strategy11_frontend_script',
+        // Register JS, enqueue later.
+        wp_register_script( 'cx_strategy11_frontend_script',
             Init::plugin_url() . '/assets/js/build/frontend.js',
             $asset['dependencies'],
             $asset['version'],
             true 
         );
 
-        // CSS.
-        wp_enqueue_style( 'cx_strategy11_frontend_style',
+        // Register CSS, enqueue later.
+        wp_register_style( 'cx_strategy11_frontend_style',
             Init::plugin_url() . '/assets/css/frontend.css',
             array_filter(
                 $asset['dependencies'],
@@ -65,7 +81,6 @@ class Shortcodes {
             ),
             $asset['version']
         );
-
-        return '<div id="strategy11-data-table">' . esc_html__( 'Loading...', 'strategy-11-rest-test' ) . '</div>';
     }
+
 }
