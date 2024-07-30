@@ -1,0 +1,31 @@
+.cx-strategy11-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+  }
+  
+  .cx-strategy11-table th,
+  .cx-strategy11-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .cx-strategy11-table thead {
+    background-color: var(--lightest-grey);
+    color: var(--dark-grey);
+  }
+  
+  .cx-strategy11-table tbody tr:nth-child(even) {
+    background-color: var(--sidebar-hover);
+  }
+  
+  .cx-strategy11-table tbody tr:hover {
+    background-color: var(--light-blue);
+  }
+  
+  .cx-strategy11-table td {
+    position: relative;
+  }
+  
+  

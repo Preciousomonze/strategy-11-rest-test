@@ -3,47 +3,101 @@ import { createRoot } from '@wordpress/element';
 import domReady from '@wordpress/dom-ready';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
-import { Panel, PanelBody, PanelRow, Notice, Button } from '@wordpress/components';
-import '../../scss/admin.scss';
+import { Notice, Button } from '@wordpress/components';
+//import '../../scss/admin.scss';
+
+// Store data row count.
+let rowCount = 0;
  
 /**
  * AdminDataTable component that fetches and displays data in a table format with a refresh button.
  */
 const AdminDataTable = () => {
     const [ data, setData ] = useState( null );
+    const [ dataLoaded, setDataLoaded ] = useState( false );
     const [ sortConfig, setSortConfig ] = useState( { key: 'id', direction: 'ascending' } );
+
+    // State to track which rows are expanded.
+    const [ expandedRows, setExpandedRows ] = useState( {} );
 
     /**
      * Fetches data from the custom REST API endpoint and sets the state.
      */
     const loadData = () => {
+        setDataLoaded( false );
         apiFetch( { path: '/strategy11/v1/data' } )
-            .then( setData )
-            .catch( error => console.error( 'Error fetching data:', error ) );
+            .then( ( result ) => {
+                setData( result );
+
+                // Update the rowCount.
+                rowCount = result && result.data && result.data.rows ? Object.keys( result.data.rows ).length : 0;
+                updateCounter( rowCount );
+            } )
+            .catch( error => console.error( 'Error fetching data:', error ) )
+            .finally( () => {
+                setDataLoaded( true );
+            } );
     };
 
     /**
      * Refreshes the data by making an AJAX request to a custom admin action and reloads the data.
      */
     const refreshData = () => {
+        setDataLoaded( false );
         apiFetch( {
-            path: '/wp-admin/admin-ajax.php',
+            path: ajaxurl,
             method: 'POST',
             data: {
-                action: 'strategy11_refresh_data',
+                action: 'cx_strategy11_refresh_data',
             },
-        } ).then( loadData );
+        } )
+        .then( loadData )
+        .finally( () => {
+            setDataLoaded( true );
+        } );
     };
 
+    /**
+     * Handler to toggle row expansion.
+     *
+     * @param {number} id - The ID of the row to toggle.
+     */
+    const handleToggle = ( id ) => {
+        setExpandedRows( ( prevExpandedRows ) => ( {
+            ...prevExpandedRows,
+            [ id ]: !prevExpandedRows[ id ]
+        }));
+    };
+
+    /**
+     * Update our counter Element
+     * 
+     * @param {int} count 
+     */
+    const updateCounter = ( count ) => {
+        // Update the counter display after data is loaded.
+        const counterElement = document.querySelector( '.cx-s-counter-card .counter' );
+        if ( counterElement ) {
+            counterElement.textContent = dataLoaded ? count : __( 'Loading... 🚦',  'strategy-11-rest-test' );
+        }
+    };
+
+    // Run our effect, oporrr.
     useEffect( () => {
         loadData();
     }, [] );
 
     if ( ! data ) {
-        return <>
-            <Notice>{ __( 'Loading... 🚦', 'strategy-11-rest-test' ) }</Notice>
-            <Button></Button>
-        </>;
+        updateCounter( rowCount );
+
+        if ( dataLoaded ) {
+            return <>
+                <Notice>{ __( 'No Data Available At The Moment. 😪', 'strategy-11-rest-test' ) }</Notice>
+                <Button onCLick={ loadData }>Try Again</Button>
+            </>;
+        } else {
+            return <></>;
+        }
     }
 
     /**
@@ -70,49 +124,56 @@ const AdminDataTable = () => {
         setSortConfig( { key, direction } );
     };
 
+    updateCounter( rowCount );
+    
     return (
-        <Panel>
-            <PanelBody 
-                title={ __( 'CodeXplorer Strategy 11 Data Table', 'strategy-11-rest-test' ) }
-                initialOpen={ true }
-             >
-                <PanelRow>
-                <div>
-                    <h2>{ data.title }</h2>
-            <table>
-                <thead>
-                    <tr>
+            <div class="cx-s-dashboard-widget cx-s-justify-between">
+                <div class="cx-s-before-table">
+                    <h2>{ data.title }</h2> 
+                    <button onClick={ refreshData } className="button cx-s-button-primary cx-s-widget-cta">
+                        { __( 'Refresh Data', 'strategy-11-rest-test' ) }
+                    </button>
+                </div>
+                <table class="wp-list-table widefat table-view-list fixed striped">
+                    <thead>
+                        <tr>
                         { data.data.headers.map( header => (
-                            <th key={ header } onClick={ () => requestSort( header.toLowerCase().replace( / /g, '' ) ) }>
+                            <th key={ header }>
                                 { header }
+                                <span className="dashicons dashicons-sort" onClick={ () => requestSort( header.toLowerCase().replace( / /g, '' ) ) }></span>
                             </th>
                         ) ) }
-                    </tr>
-                </thead>
-                <tbody>
-                    { sortedRows.map( ( row, index ) => (
-                        <tr key={ index }>
-                            <td>{ row.id }</td>
-                            <td>{ row.fname }</td>
-                            <td>{ row.lname }</td>
-                            <td>{ row.email }</td>
-                            <td>{ new Date( row.date * 1000 ).toLocaleDateString() }</td>
+                        </tr>
+                    </thead>
+                    <tbody id="the-list">
+                    { sortedRows.map( ( row, index ) => ( 
+                        <tr key={ row.id } class={ expandedRows[ row.id ] ? 'is-expanded' : '' }>
+                            <td>{ row.id }
+                            <button type="button" className="toggle-row" onClick={() => handleToggle( row.id )}>
+                                <span class="screen-reader-text">Show more details</span>
+                            </button>
+                            </td>
+                            <td>
+                                <span class="cx-s-mobile-theader">{ data.data.headers[1] }</span>
+                                <span class="cx-s-tdata">{ row.fname }</span>
+                            </td>
+                            <td>
+                                <span class="cx-s-mobile-theader">{ data.data.headers[2] }</span>
+                                <span class="cx-s-tdata">{ row.lname }</span>
+                            </td>
+                            <td><span class="cx-s-mobile-theader">{ data.data.headers[3] }</span>
+                                <span class="cx-s-tdata">{ row.email }</span>
+                            </td>
+                            <td>
+                                <span class="cx-s-mobile-theader">{ data.data.headers[4] }</span>
+                                <span class="cx-s-tdata">{ new Date( row.date * 1000 ).toLocaleDateString( __( 'en-US', 'strategy-11-rest-test' ), { year: 'numeric', month: 'long', day: 'numeric' } ) }</span>
+                            </td>
                         </tr>
                     ) ) }
-                </tbody>
-            </table>
-            <button onClick={ refreshData } className="button">
-                { __( 'Refresh Data', 'strategy-11-rest-test' ) }
-            </button>
-        </div>
-
-                </PanelRow>
-                <PanelRow>
-                    <div>Placeholder for display control</div>
-                </PanelRow>
-            </PanelBody>
-            </Panel>
-            );
+                    </tbody>
+                </table>
+            </div>
+        );
 };
 
 domReady( () => {

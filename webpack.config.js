@@ -19,7 +19,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'assets/js/build'),
         filename: '[name].js',
-    },
+    },/*
     module: {
         ...defaultConfig.module,
         rules: [
@@ -39,7 +39,7 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '../../css/[name].css',
         }),
-    ],
+    ],*/
 };
 
 /*

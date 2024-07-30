@@ -29,7 +29,7 @@ class Shortcodes {
      * Register shortcodes
      */
     public static function register_shortcodes() {
-        add_shortcode( 'strategy11_data_table', [ __CLASS__, 'data_table_shortcode' ] );
+        add_shortcode( 'cx_strategy11_data_table', [ __CLASS__, 'data_table_shortcode' ] );
     }
 
     /**
@@ -38,7 +38,34 @@ class Shortcodes {
      * @return string
      */
     public static function data_table_shortcode() {
-        wp_enqueue_script( 'strategy11_frontend_script', plugins_url( 'assets/js/build/frontend.js', __FILE__ ), [ 'wp-element' ], null, true );
+        $asset_file = Init::plugin_path() . '/assets/js/build/admin.asset.php';
+
+        if ( ! file_exists( $asset_file ) ) {
+            return;
+        }
+ 
+        $asset = include $asset_file;
+
+        // JS.
+        wp_enqueue_script( 'cx_strategy11_frontend_script',
+            Init::plugin_url() . '/assets/js/build/frontend.js',
+            $asset['dependencies'],
+            $asset['version'],
+            true 
+        );
+
+        // CSS.
+        wp_enqueue_style( 'cx_strategy11_frontend_style',
+            Init::plugin_url() . '/assets/css/frontend.css',
+            array_filter(
+                $asset['dependencies'],
+                function ( $style ) {
+                    return wp_style_is( $style, 'registered' );
+                }
+            ),
+            $asset['version']
+        );
+
         return '<div id="strategy11-data-table">' . esc_html__( 'Loading...', 'strategy-11-rest-test' ) . '</div>';
     }
 }
