@@ -10,7 +10,8 @@
         "compress-zip": "compress-zip-offload.sh -c",
 		"offload-zip": "compress-zip-offload.sh -o",
 		"compress-zip-offload": "npm run compress-zip && npm run offload-zip",
-        "plugin-zip": "wp-scripts plugin-zip"
+        "plugin-zip": "wp-scripts plugin-zip",
+        "translate": "wp i18n make-pot . languages/strategy-11-rest-test.pot"
     },
     "author": "Precious Omonzejele",
     "license": "GPL-3.0",
@@ -22,7 +23,9 @@
         "@wordpress/element": "^5.27.0",
         "@wordpress/i18n": "^4.50.0",
         "@wordpress/icons": "^9.42.0",
-        "@wordpress/notices": "^4.19.0"
+        "@wordpress/notices": "^4.19.0",
+        "grunt-wp-i18n": "~1.0.3",
+        "grunt-wp-readme-to-markdown": "~2.1.0"
     },
     "devDependencies": {
         "@wordpress/scripts": "^19.2.4",
