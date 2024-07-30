@@ -11,7 +11,7 @@ const defaultConfig = require('@wordpress/scripts/config/webpack.config.js');
 
 module.exports = {
     ...defaultConfig,
-    mode: 'development',
+    mode: 'production',
     entry: {
         frontend: path.resolve(__dirname, 'assets/js/src', 'frontend.js'),
         admin: path.resolve(__dirname, 'assets/js/src', 'admin.js'),
