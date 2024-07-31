@@ -1,5 +1,5 @@
 {
-    "name": "strategy11-challenge",
+    "name": "strategy-11-rest-test",
     "version": "1.0.0",
     "description": "A plugin for the Strategy11 interview test.",
     "scripts": {
@@ -9,9 +9,7 @@
         "test:unit": "wp-scripts test-unit-js",
         "compress-zip": "compress-zip-offload.sh -c",
 		"offload-zip": "compress-zip-offload.sh -o",
-		"compress-zip-offload": "npm run compress-zip && npm run offload-zip",
-        "plugin-zip": "wp-scripts plugin-zip",
-        "translate": "wp i18n make-pot . languages/strategy-11-rest-test.pot"
+		"compress-zip-offload": "npm run compress-zip && npm run offload-zip"
     },
     "author": "Precious Omonzejele",
     "license": "GPL-3.0",
@@ -27,7 +25,6 @@
     },
     "devDependencies": {
         "@wordpress/scripts": "^19.2.4",
-        "eslint-plugin-compat": "^6.0.0",
         "mini-css-extract-plugin": "^2.9.0"
     }
 }

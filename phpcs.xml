@@ -8,7 +8,7 @@
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 	<exclude-pattern>*/.wordpress-org/*</exclude-pattern>
 	<exclude-pattern>*/assets/*</exclude-pattern>
-	<exclude-pattern>wp-plugin-deploy-helper.php</exclude-pattern>
+	<exclude-pattern>cx-wp-plugin-deploy-helper.php</exclude-pattern>
 
     <!-- Rules -->
 	<rule ref="WordPress-Extra">
@@ -40,7 +40,7 @@
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="woo-phone-validator" />
+			<property name="text_domain" type="array" value="strategy-11-rest-test" />
 		</properties>
 	</rule>
 
