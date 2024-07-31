@@ -33,11 +33,7 @@
       ],
       "phpcbf": [
           "phpcbf . -p"
-      ],
-      "test": [
-        "codecept run unit",
-        "codecept run wpunit"
-      ] 
+      ]
     },
     "config": {
       "allow-plugins": {

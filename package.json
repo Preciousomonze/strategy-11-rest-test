@@ -5,8 +5,6 @@
     "scripts": {
         "build": "wp-scripts build",
         "start": "wp-scripts start",
-        "test:e2e": "wp-scripts test-e2e",
-        "test:unit": "wp-scripts test-unit-js",
         "compress-zip": "compress-zip-offload.sh -c",
 		"offload-zip": "compress-zip-offload.sh -o",
 		"compress-zip-offload": "npm run compress-zip && npm run offload-zip"
