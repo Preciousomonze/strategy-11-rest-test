@@ -144,12 +144,12 @@ class Admin_Page {
      */
     public static function refresh_data() {
 
-        // Check if the current user has the required capability
+        // Check if the current user is allowed.
         if ( ! current_user_can( 'manage_options' ) ) {
             wp_die( __( 'Unauthorized', 'strategy-11-rest-test' ), __( 'Error', 'strategy-11-rest-test' ), array( 'response' => 401 ) );
         }
 
-        // Check if the 'cx_strategy11_data_action' parameter is set to 'refresh'
+        // Check if the 'cx_strategy11_data_action' parameter is set to 'refresh'.
         if ( isset( $_GET['cx_strategy11_data_action'] ) && sanitize_text_field( $_GET['cx_strategy11_data_action'] ) === 'refresh' ) {
             // Delete the transient to refresh data
             delete_transient( 'cx_strategy11_cached_data' );
