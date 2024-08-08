@@ -4,6 +4,9 @@
  * Description: A plugin for the Strategy11 interview test. I tried simplifying it as much as I could, while also trying to give a large plugin kind of vibe.
  * Version: 1.0.0
  * Author: Precious Omonzejele
+ * 
+ * @package preciousomonze/strategy-11-rest-test
+ * 
  * Text Domain: strategy-11-rest-test
  * Domain Path: /languages
  */

@@ -1,6 +1,8 @@
 <?php
 /**
  *  Uninstall
+ * 
+ * @package preciousomonze/strategy-11-rest-test
  *
  * @since 1.0.0
  */
