@@ -73,7 +73,25 @@ const AdminDataTable = () => {
         // Update the counter display after data is loaded.
         const counterElement = document.querySelector( '.cx-s-counter-card .counter' );
         if ( counterElement ) {
-            counterElement.textContent = dataLoaded ? count : __( 'Loading... 🚦',  'strategy-11-rest-test' );
+            if ( ! dataLoaded ) {
+                counterElement.textContent = __( 'Loading... 🚦', 'strategy-11-rest-test' );
+                return;
+            }
+    
+            let start = 0;
+            const increment = Math.ceil( count / 50 ); // Adjust the increment to control speed.
+            const duration = 500; // milliseconds.
+            const stepTime = Math.abs( Math.floor(duration / count ) );
+            
+            const timer = setInterval( () => {
+                start += increment;
+                counterElement.textContent = start;
+    
+                if ( start >= count ) {
+                    clearInterval( timer );
+                    counterElement.textContent = count; // Ensure the final count is exact.
+                }
+            }, stepTime );
         }
     };
 
