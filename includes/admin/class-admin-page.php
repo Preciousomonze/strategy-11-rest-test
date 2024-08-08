@@ -38,7 +38,7 @@ class Admin_Page {
             'cx-strategy11-data',
             [ __CLASS__, 'admin_page' ],
             'dashicons-smiley',
-            6
+            58
         );
     }
 

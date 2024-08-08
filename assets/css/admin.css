@@ -72,35 +72,38 @@
   --check-label-color: var(--grey-700);
 }
 
-#cx-strategy11-admin-data-table {
-  width: 98%;
+.toplevel_page_cx-strategy11-data #wpcontent {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .cx-strategy11-wrap #cx-s-top-bar {
-    background: #ffffff;
-    border-bottom: 1px solid var(--grey-300);
-    padding: 0 var(--gap-md);
-    overflow: visible;
-    display: flex;
-    gap: var(--gap-sm);
-    height: 72px;
-    box-sizing: border-box;
+  background: #ffffff;
+  border-bottom: 1px solid var(--grey-300);
+  padding: 0 var(--gap-md);
+  overflow: visible;
+  display: flex;
+  gap: var(--gap-sm);
+  height: 72px;
+  box-sizing: border-box;
   margin-bottom: 30px;
   box-sizing: var(--box-shadow-xs);
 }
 
 .cx-strategy11-wrap .cx-s-header-logo, .cx-strategy11-wrap .cx-s-title {
   align-self: center;
-  margin: 0 3px;
 }
 
-.cx-s-dashboard-container.cx-s-flex-box {
+.cx-s-dashboard-container {
+  margin: var(--gap-xl);
   max-width: 1480px;
   width: calc( 100% - var(--gap-md) * 2 );
   padding-bottom: var(--gap-2xl);
   box-sizing: border-box;
   gap: var(--gap-md);
   flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
 }
 
   .cx-s-justify-between {
@@ -125,6 +128,7 @@
 .cx-s-counter-card-wrapper .cx-s-counter-card {
   flex: 1;
 }
+
 .cx-s-dashboard-container .cx-s-dashboard-widget {
   position: relative;
   flex-direction: column;
@@ -155,7 +159,6 @@
 .cx-strategy11-wrap .cx-s-card-item:not(.cx-s-counter-card) {
   gap: 10px;
 }
-
 
 .cx-strategy11-wrap .cx-s-white-body h2 {
   color: var(--grey-900);
