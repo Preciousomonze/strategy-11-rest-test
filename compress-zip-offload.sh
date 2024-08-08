@@ -19,7 +19,7 @@ while getopts ":oc" opt;
     do
         case ${opt} in
         c ) # Compress
-            php cx-wp-plugin-deploy-helper.php --plugin_name=strategy-11-rest-test --ignore_file_path=.git,.wordpress-org,.vscode/,assets/js/src/,assets/scss/,node_modules,vendor,.sh --delete_files_in_zip=cx-wp-plugin-deploy-helper.php,README.md,package-lock.json,composer.lock,phpcs.xml,.eslintrc.json,.distignore 
+            php cx-wp-plugin-deploy-helper.php --plugin_name=strategy-11-rest-test --ignore_file_path=.git,.wordpress-org,.vscode/,assets/js/src/,node_modules,vendor,.sh --delete_files_in_zip=cx-wp-plugin-deploy-helper.php,README.md,package-lock.json,composer.lock,phpcs.xml,.eslintrc.json,.distignore 
         ;;
         o ) # Offload to respective folder
             php cx-wp-plugin-deploy-helper.php --plugin_name=strategy-11-rest-test --offload=true
