@@ -8,7 +8,7 @@
 namespace CX_Strategy11_TEST;
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
+	exit; // Exit if accessed directly.
 }
 
 /**
@@ -18,33 +18,33 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Init {
 
-    /**
-     * Register all services
-     */
-    public static function register_services() {
-    	self::loader();
-    	self::register_hooks();
-    }
+	/**
+	 * Register all services
+	 */
+	public static function register_services() {
+		self::loader();
+		self::register_hooks();
+	}
 
-    /**
-     * Load required files
-     */
-    private static function loader() {
-        include_once self::plugin_path() . '/includes/class-rest-api.php';
-        include_once self::plugin_path() . '/includes/class-shortcodes.php';
-        include_once self::plugin_path() . '/includes/admin/class-admin-page.php';
-        include_once self::plugin_path() . '/includes/class-wp-cli-commands.php';
-    }
+	/**
+	 * Load required files
+	 */
+	private static function loader() {
+		include_once self::plugin_path() . '/includes/class-rest-api.php';
+		include_once self::plugin_path() . '/includes/class-shortcodes.php';
+		include_once self::plugin_path() . '/includes/admin/class-admin-page.php';
+		include_once self::plugin_path() . '/includes/class-wp-cli-commands.php';
+	}
 
-    /**
-     * Register all hooks
-     */
-    private static function register_hooks() {
-        Rest_API::init();
-        Shortcodes::init();
-        Admin_Page::init();
-        WP_CLI_Commands::init();
-    }
+	/**
+	 * Register all hooks
+	 */
+	private static function register_hooks() {
+		Rest_API::init();
+		Shortcodes::init();
+		Admin_Page::init();
+		WP_CLI_Commands::init();
+	}
 
 	/**
 	 * ---------------------------------------------------------------------------------
@@ -82,5 +82,4 @@ class Init {
 	public static function plugin_basename() {
 		return plugin_basename( CX_STRATEGY11_PLUGIN_FILE );
 	}
-
 }

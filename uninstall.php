@@ -10,5 +10,5 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 // Nothing to really clean up, i guess, the except the transient.
 if ( function_exists( 'delete_transient' ) ) {
-    delete_transient( 'cx_strategy11_cached_data' );
+	delete_transient( 'cx_strategy11_cached_data' );
 }
